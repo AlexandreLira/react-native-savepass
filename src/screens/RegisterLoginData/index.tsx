@@ -58,9 +58,14 @@ export function RegisterLoginData() {
 
     // Save data on AsyncStorage and navigate to 'Home' screen
     const response = await AsyncStorage.getItem(dataKey)
-    const data = JSON.parse(response || '[]')
+    const parsedData = JSON.parse(response || '[]')
 
-    await AsyncStorage.setItem(dataKey, JSON.stringify([newLoginData, ...data]))
+    const newLoginListData = [
+      ...parsedData,
+      newLoginData
+    ]
+
+    await AsyncStorage.setItem(dataKey, JSON.stringify(newLoginListData))
     navigate('Home')
   }
 
